@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-// 1. Import LucideIcon type
+// 1. Import LucideIcon type?
 import { BarChart2, Users, Dumbbell, Calendar, MessageSquare, HeadphonesIcon, Home, LineChart, Settings, HelpCircle, Menu, X, LucideAward, LucideIcon } from 'lucide-react'
 import { useSession } from "next-auth/react"
 
