@@ -363,7 +363,7 @@ export function TrainerTable() {
                   </TableCell>
                   <TableCell>{trainer.clients?.length}</TableCell>
                   <TableCell>
-                    <span
+                    <div
                       className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${
                         trainer.status === "ACTIVE"
                           ? "bg-green-100 text-green-700"
@@ -371,7 +371,7 @@ export function TrainerTable() {
                       }`}
                     >
                       {trainer.status}
-                    </span>
+                    </div>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
@@ -462,27 +462,59 @@ export function TrainerTable() {
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="new-email" className="text-right">
+                <Label htmlFor="edit-image" className="text-right">
                   Image
                 </Label>
-                {editTrainer?.image ? (
-                  <Image
-                    src={editTrainer.image}
-                    alt="Trainer image"
-                    width={600}
-                    height={600}
-                    className="rounded-xl"
-                  />
-                ) : (
-                  <Input
-                    id="new-image"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleUpload}
-                    className="col-span-3"
-                  />
-                )}
+                <div className="col-span-3 flex flex-col gap-3">
+                  {editTrainer?.image ? (
+                    <div className="relative h-40 w-40 group">  
+                      <Image
+                        src={editTrainer.image}
+                        alt="Trainer image"
+                        fill
+                        className="rounded-xl object-cover border border-gray-200"
+                      />
+                      {/* Overlay buttons for Edit/Remove */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 rounded-xl">
+                        <label
+                          htmlFor="edit-image-upload"
+                          className="cursor-pointer p-2 bg-white rounded-full hover:bg-gray-100 transition-colors"
+                          title="Change Image"
+                        >
+                          <Edit2 className="h-4 w-4 text-gray-700" />
+                          <input
+                            id="edit-image-upload"
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={handleUpload}
+                          />
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => setEditTrainer({ ...editTrainer!, image: "" })}
+                          className="p-2 bg-white rounded-full hover:bg-red-50 transition-colors"
+                          title="Remove Image"
+                        >
+                          <Trash className="h-4 w-4 text-red-600" />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        id="edit-image"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleUpload}
+                        className="flex-1"
+                      />
+                      {isLoading && <span className="text-xs text-muted-foreground">Uploading...</span>}
+                    </div>
+                  )}
+                </div>
               </div>
+
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="specialization" className="text-right">
                   Specialization
@@ -512,7 +544,7 @@ export function TrainerTable() {
                       status: e.target.value as "ACTIVE" | "INACTIVE",
                     })
                   }
-                  className="col-span-3"
+                  className="col-span-3 border bg-white py-2 px-3 rounded"
                 >
                   <option value="ACTIVE">Active</option>
                   <option value="INACTIVE">Inactive</option>
