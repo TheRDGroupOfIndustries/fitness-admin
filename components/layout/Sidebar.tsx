@@ -3,13 +3,15 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BarChart2, Users, Dumbbell, Calendar, MessageSquare, HeadphonesIcon, Home, LineChart, Settings, HelpCircle, Menu, X, LucideAward } from 'lucide-react'
+// 1. Import LucideIcon type
+import { BarChart2, Users, Dumbbell, Calendar, MessageSquare, HeadphonesIcon, Home, LineChart, Settings, HelpCircle, Menu, X, LucideAward, LucideIcon } from 'lucide-react'
 import { useSession } from "next-auth/react"
 
+// 2. Update the type definition
 type NavigationItem = {
   name: string;
   href: string;
-  icon: React.ComponentType<{ size?: number; className?: string }>;
+  icon: LucideIcon; // Use the official type from the library
   super_admin_only?: boolean;
 };
 
@@ -72,6 +74,7 @@ export function Sidebar() {
   .filter((item) => !item.super_admin_only || session?.user?.role === "SUPER_ADMIN")
   .map((item) => {
     const isActive = pathname === item.href;
+    const IconComponent = item.icon; // Assign to capitalized variable for JSX rendering
     return (
       <li key={item.name}>
         <Link
@@ -85,7 +88,8 @@ export function Sidebar() {
             }
           }}
         >
-          {<item.icon size={24} className="h-6 w-6" />}
+          {/* Render the icon correctly */}
+          <IconComponent size={24} className="h-6 w-6" />
           <span className="ml-3">{item.name}</span>
         </Link>
       </li>
