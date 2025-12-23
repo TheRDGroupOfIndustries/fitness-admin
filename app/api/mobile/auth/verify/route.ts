@@ -9,11 +9,11 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { email } = body;
-
+    console.log("sendotp called at backend",email)
     const user = await prisma.user.findUnique({
       where: { email: email },
     });
-
+  
     if (!user) {
       return NextResponse.json({ user: false }, { status: 200 });
     }

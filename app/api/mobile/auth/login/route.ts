@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { email, password } = body;
-
+    console.log("login in backend",email,password)
     if (!email || !password) {
       return NextResponse.json(
         { error: "Missing required fields" },

@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { email, password, name, membership, trainerId, phone } = body;
-
+    console.log('register body:', body);
     if (!email || !password || !name) {
       return NextResponse.json(
         { error: "Missing required fields" },

@@ -12,13 +12,13 @@ export async function POST(req: NextRequest) {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: 'fitnessevolution108@gmail.com',
+        pass: 'qzor ahwq efqo mjdl',
       },
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: 'fitnessevolution108@gmail.com',
       to: email,
       subject: "Fitness Evolution - Reset Password OTP",
       html: `
